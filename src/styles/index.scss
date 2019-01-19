@@ -1,0 +1,22 @@
+@import "variables";
+@import "reset";
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font: {
+    family: $font-family;
+    size: $base-font-size;
+  }
+}
+
+body {
+  color: $font-color;
+  background-color: $background-color;
+}
+
+@for $i from 1 through 6 {
+  h#{$i} {
+    font-size: $base-font-size + $heading-scale * (6 - $i);
+  }
+}
