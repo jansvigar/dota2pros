@@ -1,0 +1,50 @@
+@import '../../styles/variables';
+
+table {
+  font-size: 0.9rem;
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  caption {
+    background-color: lighten($primary-color, 10%);
+    text-align: left;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    color: lighten($font-color, 10%);
+  }
+  tr {
+    background-color: $primary-color;
+  }
+  th,
+  td {
+    text-align: left;
+    padding: 1rem 1.5rem;
+    border-top: thin solid rgba(255, 255, 255, 0.2);
+    border-bottom: thin solid rgba(255, 255, 255, 0.2);
+    vertical-align: middle;
+    img {
+      vertical-align: middle;
+      margin: 0 15px;
+    }
+  }
+  th {
+    color: $font-color-light;
+    text-transform: uppercase;
+  }
+  thead tr {
+    th {
+      border-top: 0;
+    }
+  }
+
+  thead tr,
+  tbody tr:nth-child(2n) {
+    background-color: darken($primary-color, 2%);
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}

@@ -1,5 +1,5 @@
-@import "variables";
-@import "reset";
+@import 'variables';
+@import 'reset';
 
 html {
   -webkit-font-smoothing: antialiased;
@@ -19,4 +19,10 @@ body {
   h#{$i} {
     font-size: $base-font-size + $heading-scale * (6 - $i);
   }
+}
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: auto;
 }
