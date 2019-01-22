@@ -32,7 +32,6 @@ export function getPlayers() {
       let response = await fetch(API_URL);
       if (response.status === 200) {
         let players = await response.json();
-        console.log(players);
         dispatch(playersLoaded(players));
       }
     } catch (err) {

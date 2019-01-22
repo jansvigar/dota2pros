@@ -1,17 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getPlayers } from "./actions";
-import Table from "../../components/Table";
+import ConnectedTable from "../../containers/ConnectedTable";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 class App extends Component {
   componentDidMount() {
     this.props.getPlayers();
   }
+
   render() {
     return (
       <div className="container">
         <h1>Dota 2 Pros</h1>
-        <Table data={this.props.players} />
+        {this.props.loading ? (
+          <LoadingIndicator />
+        ) : this.props.error ? (
+          "Error"
+        ) : (
+          <ConnectedTable />
+        )}
       </div>
     );
   }
