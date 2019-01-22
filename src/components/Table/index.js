@@ -1,23 +1,38 @@
 import React from "react";
+import orderBy from "lodash.orderby";
 import { formatDate, getPlayerRole, getPlayerCountry } from "../../utils";
 import "./styles.scss";
 
 const Table = props => {
-  const { data, currentPage, pageLength, maxPage } = props;
+  const { data, currentPage, pageLength, maxPage, sortType, sortBy } = props;
+  const sortedData = orderBy(data, [sortBy], [sortType]);
   let startIndex = (currentPage - 1) * pageLength;
   let endIndex = currentPage * pageLength;
-  const showing = data.slice(startIndex, endIndex);
+  const showing = sortedData.slice(startIndex, endIndex);
+
+  const attachHeaderClickEvent = columnName => () => {
+    if (sortBy === columnName && sortType === "asc") {
+      props.sortDescending(sortBy);
+    } else if (sortBy === columnName && sortType === "desc") {
+      props.sortAscending(sortBy);
+    } else {
+      props.sortAscending(columnName);
+    }
+  };
+
   return (
     <React.Fragment>
       <table>
         <caption>Pro Players List</caption>
         <thead>
           <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Team</th>
-            <th scope="col">Role</th>
-            <th scope="col">Country</th>
-            <th scope="col">Last Match Time</th>
+            <th onClick={attachHeaderClickEvent("name")}>Name</th>
+            <th onClick={attachHeaderClickEvent("team_name")}>Team</th>
+            <th onClick={attachHeaderClickEvent("fantasy_role")}>Role</th>
+            <th onClick={attachHeaderClickEvent("country_code")}>Country</th>
+            <th onClick={attachHeaderClickEvent("last_match_time")}>
+              Last Match Time
+            </th>
           </tr>
         </thead>
         <tbody>

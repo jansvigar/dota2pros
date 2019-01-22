@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Table from "../../components/Table";
-import { initializeTable, loadNext, loadPrevious } from "./actions";
+import {
+  initializeTable,
+  loadNext,
+  loadPrevious,
+  sortAscending,
+  sortDescending
+} from "./actions";
 
 class ConnectedTable extends Component {
   componentDidMount() {
@@ -19,11 +25,13 @@ const mapStateToProps = state => {
     data: state.app.players,
     currentPage: state.table.currentPage,
     pageLength: state.table.pageLength,
-    maxPage: state.table.maxPage
+    maxPage: state.table.maxPage,
+    sortType: state.table.sortType,
+    sortBy: state.table.sortBy
   };
 };
 
 export default connect(
   mapStateToProps,
-  { initializeTable, loadNext, loadPrevious }
+  { initializeTable, loadNext, loadPrevious, sortAscending, sortDescending }
 )(ConnectedTable);

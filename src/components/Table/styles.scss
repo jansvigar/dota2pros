@@ -33,10 +33,28 @@ table {
   th {
     color: $font-color-light;
     text-transform: uppercase;
-  }
-  thead tr {
-    th {
-      border-top: 0;
+    cursor: pointer;
+    border-top: 0;
+    position: relative;
+    &:before,
+    &:after {
+      content: " ";
+      border: 5px solid transparent;
+      content: "";
+      display: block;
+      height: 0;
+      right: 25px;
+      top: 50%;
+      position: absolute;
+      width: 0;
+    }
+    &:before {
+      border-bottom-color: white;
+      margin-top: -12px;
+    }
+    &:after {
+      border-top-color: white;
+      margin-top: 1px;
     }
   }
 

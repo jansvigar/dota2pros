@@ -1,19 +1,22 @@
 import {
   INITIALIZE_TABLE,
   TABLE_LOAD_NEXT,
-  TABLE_LOAD_PREVIOUS
+  TABLE_LOAD_PREVIOUS,
+  TABLE_SORT_ASC,
+  TABLE_SORT_DESC
 } from "./constants";
 
 const initialState = {
   currentPage: 1,
   pageLength: 5,
-  maxPage: 1
+  maxPage: 1,
+  sortType: "asc",
+  sortBy: "team_name"
 };
 
 function tableReducer(state = initialState, action) {
   switch (action.type) {
     case INITIALIZE_TABLE:
-      console.log(action.maxPage);
       return {
         ...state,
         maxPage: action.maxPage
@@ -30,6 +33,18 @@ function tableReducer(state = initialState, action) {
       return {
         ...state,
         currentPage: state.currentPage - 1 < 1 ? 1 : state.currentPage - 1
+      };
+    case TABLE_SORT_ASC:
+      return {
+        ...state,
+        sortType: action.sortType,
+        sortBy: action.sortBy
+      };
+    case TABLE_SORT_DESC:
+      return {
+        ...state,
+        sortType: action.sortType,
+        sortBy: action.sortBy
       };
     default:
       return state;
