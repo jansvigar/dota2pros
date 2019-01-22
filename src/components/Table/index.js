@@ -1,9 +1,9 @@
 import React from "react";
-import { formatDate } from "../../utils";
+import { formatDate, getPlayerRole, getPlayerCountry } from "../../utils";
 import "./styles.scss";
 
 const Table = props => {
-  const { data, currentPage, pageLength } = props;
+  const { data, currentPage, pageLength, maxPage } = props;
   let startIndex = (currentPage - 1) * pageLength;
   let endIndex = currentPage * pageLength;
   const showing = data.slice(startIndex, endIndex);
@@ -39,16 +39,19 @@ const Table = props => {
                     {name}
                   </td>
                   <td>{team_name}</td>
-                  <td>{fantasy_role}</td>
-                  <td>{country_code}</td>
+                  <td>{getPlayerRole(fantasy_role)}</td>
+                  <td>{getPlayerCountry(country_code)}</td>
                   <td>{formatDate(last_match_time)}</td>
                 </tr>
               );
             })}
         </tbody>
       </table>
-      <div className="table-pagination">
+      <div className="pagination">
         <button onClick={props.loadPrevious}>Previous</button>
+        <span>
+          Page {currentPage} of {maxPage}
+        </span>
         <button onClick={props.loadNext}>Next</button>
       </div>
     </React.Fragment>

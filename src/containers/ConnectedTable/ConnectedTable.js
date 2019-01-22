@@ -18,7 +18,8 @@ const mapStateToProps = state => {
   return {
     data: state.app.players,
     currentPage: state.table.currentPage,
-    pageLength: state.table.pageLength
+    pageLength: state.table.pageLength,
+    maxPage: state.table.maxPage
   };
 };
 

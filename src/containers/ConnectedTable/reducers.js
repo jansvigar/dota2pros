@@ -13,6 +13,7 @@ const initialState = {
 function tableReducer(state = initialState, action) {
   switch (action.type) {
     case INITIALIZE_TABLE:
+      console.log(action.maxPage);
       return {
         ...state,
         maxPage: action.maxPage
