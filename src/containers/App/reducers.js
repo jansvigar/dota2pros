@@ -1,13 +1,13 @@
 import {
   LOAD_PLAYERS,
   LOAD_PLAYERS_SUCCESS,
-  LOAD_PLAYERS_ERROR,
-} from '../actions/constants';
+  LOAD_PLAYERS_ERROR
+} from "./constants";
 
 const initialState = {
   loading: false,
   error: false,
-  players: [],
+  players: []
 };
 
 function appReducer(state = initialState, action) {
@@ -16,20 +16,20 @@ function appReducer(state = initialState, action) {
       return {
         ...state,
         loading: true,
-        error: false,
+        error: false
       };
     case LOAD_PLAYERS_SUCCESS:
       return {
         ...state,
         loading: false,
         error: false,
-        players: action.players,
+        players: action.players
       };
     case LOAD_PLAYERS_ERROR:
       return {
         ...state,
         loading: false,
-        error: action.error,
+        error: action.error
       };
     default:
       return state;
