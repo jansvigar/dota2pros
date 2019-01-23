@@ -1,6 +1,6 @@
 import React from "react";
 import orderBy from "lodash.orderby";
-import { formatDate, getPlayerRole, getPlayerCountry } from "../../utils";
+import { formatDate } from "../../utils";
 import "./styles.scss";
 
 const Table = props => {
@@ -20,10 +20,23 @@ const Table = props => {
     }
   };
 
+  const onSearchBoxChange = event => {
+    props.search(event.target.value.trim());
+  };
+
   return (
     <React.Fragment>
       <table>
-        <caption>Pro Players List</caption>
+        <caption>
+          Pro Players List
+          <div className="search-box">
+            <input
+              type="search"
+              placeholder="Search.."
+              onChange={onSearchBoxChange}
+            />
+          </div>
+        </caption>
         <thead>
           <tr>
             <th onClick={attachHeaderClickEvent("name")}>Name</th>
@@ -54,8 +67,8 @@ const Table = props => {
                     {name}
                   </td>
                   <td>{team_name}</td>
-                  <td>{getPlayerRole(fantasy_role)}</td>
-                  <td>{getPlayerCountry(country_code)}</td>
+                  <td>{fantasy_role}</td>
+                  <td>{country_code}</td>
                   <td>{formatDate(last_match_time)}</td>
                 </tr>
               );

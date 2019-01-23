@@ -3,6 +3,7 @@ import {
   LOAD_PLAYERS_SUCCESS,
   LOAD_PLAYERS_ERROR
 } from "./constants";
+import { getPlayerRole, getPlayerCountry } from "../../utils";
 
 export function loadPlayers() {
   return {
@@ -32,7 +33,16 @@ export function getPlayers() {
       let response = await fetch(API_URL);
       if (response.status === 200) {
         let players = await response.json();
-        dispatch(playersLoaded(players));
+
+        let formattedPlayers = players.map(player => {
+          return {
+            ...player,
+            fantasy_role: getPlayerRole(player.fantasy_role),
+            country_code: getPlayerCountry(player.country_code)
+          };
+        });
+
+        dispatch(playersLoaded(formattedPlayers));
       }
     } catch (err) {
       dispatch(playersLoadingError(err));

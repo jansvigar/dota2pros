@@ -3,7 +3,8 @@ import {
   TABLE_LOAD_NEXT,
   TABLE_LOAD_PREVIOUS,
   TABLE_SORT_ASC,
-  TABLE_SORT_DESC
+  TABLE_SORT_DESC,
+  TABLE_SEARCH
 } from "./constants";
 
 export function initializeTable(maxPage) {
@@ -38,5 +39,12 @@ export function sortDescending(columnName) {
     type: TABLE_SORT_DESC,
     sortBy: columnName,
     sortType: "desc"
+  };
+}
+
+export function search(keyword) {
+  return {
+    type: TABLE_SEARCH,
+    keyword
   };
 }

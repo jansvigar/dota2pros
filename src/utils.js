@@ -32,3 +32,22 @@ export const getPlayerCountry = countryCode => {
   }
   return "Unknown";
 };
+
+/**
+ * searchArray function from https://codereview.stackexchange.com/questions/197345/js-code-that-search-through-every-property-in-a-nested-object
+ */
+export const searchArray = (array, keyword) => {
+  const regExp = new RegExp(keyword, "gi");
+  const check = obj => {
+    if (obj !== null && typeof obj === "object") {
+      return Object.values(obj).some(check);
+    }
+    if (Array.isArray(obj)) {
+      return obj.some(check);
+    }
+    return (
+      (typeof obj === "string" || typeof obj === "number") && regExp.test(obj)
+    );
+  };
+  return array.filter(check);
+};

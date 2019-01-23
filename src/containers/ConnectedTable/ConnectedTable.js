@@ -6,7 +6,8 @@ import {
   loadNext,
   loadPrevious,
   sortAscending,
-  sortDescending
+  sortDescending,
+  search
 } from "./actions";
 
 class ConnectedTable extends Component {
@@ -33,5 +34,12 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { initializeTable, loadNext, loadPrevious, sortAscending, sortDescending }
+  {
+    initializeTable,
+    loadNext,
+    loadPrevious,
+    sortAscending,
+    sortDescending,
+    search
+  }
 )(ConnectedTable);
