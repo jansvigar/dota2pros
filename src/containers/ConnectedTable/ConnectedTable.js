@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import pick from "lodash.pick";
 import Table from "../../components/Table";
 import {
   initializeTable,
@@ -14,18 +13,7 @@ import { searchArray } from "../../utils";
 
 class ConnectedTable extends Component {
   componentDidMount() {
-    const pickedPlayersData = this.props.players.map(player =>
-      pick(player, [
-        "name",
-        "team_name",
-        "fantasy_role",
-        "country_code",
-        "last_match_time",
-        "avatar",
-        "account_id"
-      ])
-    );
-    this.props.initializeTable(pickedPlayersData);
+    this.props.initializeTable(this.props.players);
   }
   render() {
     return <Table {...this.props} />;

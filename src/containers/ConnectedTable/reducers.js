@@ -1,4 +1,5 @@
 import orderBy from "lodash.orderby";
+import pick from "lodash.pick";
 import {
   INITIALIZE_TABLE,
   TABLE_LOAD_NEXT,
@@ -22,7 +23,17 @@ function tableReducer(state = initialState, action) {
     case INITIALIZE_TABLE:
       return {
         ...state,
-        data: action.data
+        data: action.data.map(player =>
+          pick(player, [
+            "name",
+            "team_name",
+            "fantasy_role",
+            "country_code",
+            "last_match_time",
+            "avatar",
+            "account_id"
+          ])
+        )
       };
     case TABLE_LOAD_NEXT:
       return {

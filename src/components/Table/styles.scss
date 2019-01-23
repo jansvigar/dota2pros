@@ -80,6 +80,15 @@ table {
 
 .pagination {
   text-align: right;
+  input {
+    padding: 5px;
+    margin: 0 5px;
+    border: thin solid #666;
+    border-radius: 4px;
+    width: 50px;
+    font-size: 1rem;
+    text-align: center;
+  }
   button {
     padding: 15px;
     border-radius: 4px;
