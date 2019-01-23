@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import pick from "lodash.pick";
 import Table from "../../components/Table";
 import {
   initializeTable,
@@ -9,24 +10,35 @@ import {
   sortDescending,
   search
 } from "./actions";
+import { searchArray } from "../../utils";
 
 class ConnectedTable extends Component {
   componentDidMount() {
-    this.props.initializeTable(
-      Math.round(this.props.data.length / this.props.pageLength + 1, 0)
+    const pickedPlayersData = this.props.players.map(player =>
+      pick(player, [
+        "name",
+        "team_name",
+        "fantasy_role",
+        "country_code",
+        "last_match_time",
+        "avatar",
+        "account_id"
+      ])
     );
+    this.props.initializeTable(pickedPlayersData);
   }
   render() {
     return <Table {...this.props} />;
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    data: state.app.players,
+    data: state.table.searchKeyword
+      ? searchArray(state.table.data, state.table.searchKeyword)
+      : state.table.data,
     currentPage: state.table.currentPage,
     pageLength: state.table.pageLength,
-    maxPage: state.table.maxPage,
     sortType: state.table.sortType,
     sortBy: state.table.sortBy
   };

@@ -7,22 +7,24 @@ import {
   TABLE_SEARCH
 } from "./constants";
 
-export function initializeTable(maxPage) {
+export function initializeTable(data) {
   return {
     type: INITIALIZE_TABLE,
+    data
+  };
+}
+
+export function loadNext(maxPage) {
+  return {
+    type: TABLE_LOAD_NEXT,
     maxPage
   };
 }
 
-export function loadNext() {
+export function loadPrevious(maxPage) {
   return {
-    type: TABLE_LOAD_NEXT
-  };
-}
-
-export function loadPrevious() {
-  return {
-    type: TABLE_LOAD_PREVIOUS
+    type: TABLE_LOAD_PREVIOUS,
+    maxPage
   };
 }
 

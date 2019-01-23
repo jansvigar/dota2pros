@@ -1,17 +1,20 @@
+import orderBy from "lodash.orderby";
 import {
   INITIALIZE_TABLE,
   TABLE_LOAD_NEXT,
   TABLE_LOAD_PREVIOUS,
   TABLE_SORT_ASC,
-  TABLE_SORT_DESC
+  TABLE_SORT_DESC,
+  TABLE_SEARCH
 } from "./constants";
 
 const initialState = {
+  data: [],
   currentPage: 1,
   pageLength: 5,
-  maxPage: 1,
   sortType: "asc",
-  sortBy: "team_name"
+  sortBy: "team_name",
+  searchKeyword: ""
 };
 
 function tableReducer(state = initialState, action) {
@@ -19,13 +22,13 @@ function tableReducer(state = initialState, action) {
     case INITIALIZE_TABLE:
       return {
         ...state,
-        maxPage: action.maxPage
+        data: action.data
       };
     case TABLE_LOAD_NEXT:
       return {
         ...state,
         currentPage:
-          state.currentPage + 1 > state.maxPage
+          state.currentPage + 1 > action.maxPage
             ? state.currentPage
             : state.currentPage + 1
       };
@@ -37,14 +40,22 @@ function tableReducer(state = initialState, action) {
     case TABLE_SORT_ASC:
       return {
         ...state,
-        sortType: action.sortType,
-        sortBy: action.sortBy
+        data: orderBy(state.data, [action.sortBy], "asc"),
+        sortBy: action.sortBy,
+        sortType: "asc"
       };
     case TABLE_SORT_DESC:
       return {
         ...state,
-        sortType: action.sortType,
-        sortBy: action.sortBy
+        data: orderBy(state.data, [action.sortBy], "desc"),
+        sortBy: action.sortBy,
+        sortType: "desc"
+      };
+    case TABLE_SEARCH:
+      return {
+        ...state,
+        searchKeyword: action.keyword,
+        currentPage: 1
       };
     default:
       return state;

@@ -1,16 +1,17 @@
 import React from "react";
-import orderBy from "lodash.orderby";
 import { formatDate } from "../../utils";
 import "./styles.scss";
 
 const Table = props => {
-  const { data, currentPage, pageLength, maxPage, sortType, sortBy } = props;
-  const sortedData = orderBy(data, [sortBy], [sortType]);
+  const { data, currentPage, pageLength, sortType, sortBy } = props;
+
+  const maxPage = data.length > 0 ? Math.ceil(data.length / pageLength, 0) : 1;
+
   let startIndex = (currentPage - 1) * pageLength;
   let endIndex = currentPage * pageLength;
-  const showing = sortedData.slice(startIndex, endIndex);
+  const showing = data.slice(startIndex, endIndex);
 
-  const attachHeaderClickEvent = columnName => () => {
+  const onTableHeaderClick = columnName => () => {
     if (sortBy === columnName && sortType === "asc") {
       props.sortDescending(sortBy);
     } else if (sortBy === columnName && sortType === "desc") {
@@ -22,6 +23,14 @@ const Table = props => {
 
   const onSearchBoxChange = event => {
     props.search(event.target.value.trim());
+  };
+
+  const onNextClick = event => {
+    props.loadNext(maxPage);
+  };
+
+  const onPreviousClick = event => {
+    props.loadPrevious(maxPage);
   };
 
   return (
@@ -39,11 +48,11 @@ const Table = props => {
         </caption>
         <thead>
           <tr>
-            <th onClick={attachHeaderClickEvent("name")}>Name</th>
-            <th onClick={attachHeaderClickEvent("team_name")}>Team</th>
-            <th onClick={attachHeaderClickEvent("fantasy_role")}>Role</th>
-            <th onClick={attachHeaderClickEvent("country_code")}>Country</th>
-            <th onClick={attachHeaderClickEvent("last_match_time")}>
+            <th onClick={onTableHeaderClick("name")}>Name</th>
+            <th onClick={onTableHeaderClick("team_name")}>Team</th>
+            <th onClick={onTableHeaderClick("fantasy_role")}>Role</th>
+            <th onClick={onTableHeaderClick("country_code")}>Country</th>
+            <th onClick={onTableHeaderClick("last_match_time")}>
               Last Match Time
             </th>
           </tr>
@@ -76,11 +85,11 @@ const Table = props => {
         </tbody>
       </table>
       <div className="pagination">
-        <button onClick={props.loadPrevious}>Previous</button>
+        <button onClick={onPreviousClick}>Previous</button>
         <span>
           Page {currentPage} of {maxPage}
         </span>
-        <button onClick={props.loadNext}>Next</button>
+        <button onClick={onNextClick}>Next</button>
       </div>
     </React.Fragment>
   );
