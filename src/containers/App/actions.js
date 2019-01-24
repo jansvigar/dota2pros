@@ -38,7 +38,7 @@ export function getPlayers() {
           return {
             ...player,
             fantasy_role: getPlayerRole(player.fantasy_role),
-            country_code: getPlayerCountry(player.country_code)
+            loccountrycode: getPlayerCountry(player.loccountrycode)
           };
         });
 

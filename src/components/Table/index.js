@@ -4,12 +4,13 @@ import "./styles.scss";
 
 const Table = props => {
   const { data, currentPage, pageLength, sortType, sortBy } = props;
-
-  const maxPage = data.length > 0 ? Math.ceil(data.length / pageLength, 0) : 1;
+  const maxPage =
+    data && data.length > 0 ? Math.ceil(data.length / pageLength, 0) : 1;
 
   let startIndex = (currentPage - 1) * pageLength;
   let endIndex = currentPage * pageLength;
-  const showing = data.slice(startIndex, endIndex);
+  const showing =
+    data && data.length > 0 ? data.slice(startIndex, endIndex) : [];
 
   const onTableHeaderClick = columnName => () => {
     if (sortBy === columnName && sortType === "asc") {
@@ -51,21 +52,21 @@ const Table = props => {
             <th onClick={onTableHeaderClick("name")}>Name</th>
             <th onClick={onTableHeaderClick("team_name")}>Team</th>
             <th onClick={onTableHeaderClick("fantasy_role")}>Role</th>
-            <th onClick={onTableHeaderClick("country_code")}>Country</th>
+            <th onClick={onTableHeaderClick("loccountrycode")}>Country</th>
             <th onClick={onTableHeaderClick("last_match_time")}>
               Last Match Time
             </th>
           </tr>
         </thead>
         <tbody>
-          {showing &&
+          {showing.length > 0 ? (
             showing.map(player => {
               const {
                 account_id,
                 avatar,
                 team_name,
                 fantasy_role,
-                country_code,
+                loccountrycode,
                 last_match_time,
                 name
               } = player;
@@ -77,11 +78,18 @@ const Table = props => {
                   </td>
                   <td>{team_name}</td>
                   <td>{fantasy_role}</td>
-                  <td>{country_code}</td>
+                  <td>{loccountrycode}</td>
                   <td>{formatDate(last_match_time)}</td>
                 </tr>
               );
-            })}
+            })
+          ) : (
+            <tr>
+              <td colSpan="5" data-testid="">
+                No data available
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
       <div className="pagination">

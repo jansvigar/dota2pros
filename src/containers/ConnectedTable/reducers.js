@@ -28,7 +28,7 @@ function tableReducer(state = initialState, action) {
             "name",
             "team_name",
             "fantasy_role",
-            "country_code",
+            "loccountrycode",
             "last_match_time",
             "avatar",
             "account_id"
