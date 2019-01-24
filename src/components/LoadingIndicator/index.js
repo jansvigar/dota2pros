@@ -6,7 +6,7 @@ import React from "react";
 import "./styles.scss";
 
 const LoadingIndicator = () => (
-  <div className="loading-indicator">
+  <div className="loading-indicator" data-testid="loading-indicator">
     <div />
     <div />
     <div />

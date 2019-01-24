@@ -16,7 +16,7 @@ class App extends Component {
         {this.props.loading ? (
           <LoadingIndicator />
         ) : this.props.error ? (
-          "There is an error loading data"
+          this.props.error.msg
         ) : (
           <ConnectedTable players={this.props.players} />
         )}

@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   loading: false,
-  error: false,
+  error: null,
   players: []
 };
 
@@ -16,13 +16,13 @@ function appReducer(state = initialState, action) {
       return {
         ...state,
         loading: true,
-        error: false
+        error: null
       };
     case LOAD_PLAYERS_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: false,
+        error: null,
         players: action.players
       };
     case LOAD_PLAYERS_ERROR:
